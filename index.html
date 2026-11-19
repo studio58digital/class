@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIMADELAPAN STUDIO DIGITAL - Mastering Digital Animation with AI</title>
+    <meta name="description" content="Platform pembelajaran pembuatan video animasi, iklan, dan audio digital berbasis Artificial Intelligence bersama Studio58.">
+    
+    <!-- Open Graph / Social Preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="STUDIO58 - Mastering Digital Animation with AI">
+    <meta property="og:description" content="Akses 15+ modul eksklusif pembuatan video animasi, iklan, hingga audio digital berbasis AI.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop">
+
+    <!-- Inline SVG Favicon (Mencegah error 404 favicon.ico) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,15 85,32 50,50 15,32' fill='%2300d4ff'/%3E%3Cpolygon points='15,32 50,50 50,85 15,67' fill='%232563eb'/%3E%3Cpolygon points='50,50 85,32 85,67 50,85' fill='%231d4ed8'/%3E%3C/svg%3E">
+
+    <!-- Tailwind CSS CDN v3 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#050811',
+                        cardDark: '#0d1322',
+                        cyanNeon: '#00d4ff',
+                        deepBlue: '#2563eb',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'neon-glow': '0 0 20px rgba(0, 212, 255, 0.35)',
+                        'neon-glow-lg': '0 0 35px rgba(0, 212, 255, 0.55)',
+                        'blue-glow': '0 0 25px rgba(37, 99, 235, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050811;
+            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: clip;
+        }
+
+        .glass-panel {
+            background: rgba(13, 19, 34, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 212, 255, 0.18);
+        }
+
+        .glass-card {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(0, 212, 255, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(0, 212, 255, 0.35);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050811;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00d4ff;
+        }
+
+        /* Ambient Lights Background Effects */
+        .ambient-glow-1 {
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.12) 0%, rgba(5, 8, 17, 0) 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .ambient-glow-2 {
+            position: absolute;
+            top: 40%;
+            right: -10%;
+            width: 45vw;
+            height: 45vw;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, rgba(5, 8, 17, 0) 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Toast Popup Animation */
+        @keyframes slideIn {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .toast-animate {
+            animation: slideIn 0.3s ease forwards;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col relative selection:bg-cyanNeon selection:text-obsidian">
+
+    <!-- Ambient Gradient Backdrops -->
+    <div class="ambient-glow-1"></div>
+    <div class="ambient-glow-2"></div>
+
+    <!-- 1. HEADER & NAVIGATION BAR -->
+    <header class="sticky top-0 z-40 w-full glass-panel border-b border-white/10 px-4 lg:px-8 py-3.5 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- 3D Cube Logo & Studio Title -->
+            <a href="#top" onclick="goHome(event)" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 relative flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                    <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-[0_0_8px_rgba(0,212,255,0.6)]">
+                        <defs>
+                            <linearGradient id="cubeGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#00d4ff" />
+                                <stop offset="100%" stop-color="#2563eb" />
+                            </linearGradient>
+                            <linearGradient id="cubeGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#2563eb" />
+                                <stop offset="100%" stop-color="#050811" />
+                            </linearGradient>
+                            <linearGradient id="cubeGrad3" x1="100%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#00d4ff" />
+                                <stop offset="100%" stop-color="#1d4ed8" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Top Face -->
+                        <polygon points="50,15 85,32 50,50 15,32" fill="url(#cubeGrad1)" />
+                        <!-- Left Face -->
+                        <polygon points="15,32 50,50 50,85 15,67" fill="url(#cubeGrad2)" opacity="0.9" />
+                        <!-- Right Face -->
+                        <polygon points="50,50 85,32 85,67 50,85" fill="url(#cubeGrad3)" opacity="0.85" />
+                        <!-- Inner Edge Lines -->
+                        <polyline points="50,15 50,50 85,32" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.4" />
+                        <polyline points="50,50 15,32" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.4" />
+                        <polyline points="50,50 50,85" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.4" />
+                    </svg>
+                </div>
+                <div>
+                    <span class="text-lg lg:text-xl font-extrabold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-cyanNeon via-blue-400 to-white block leading-none">
+                        STUDIO58
+                    </span>
+                    <span class="text-[10px] font-semibold text-slate-400 tracking-[0.25em] block uppercase mt-0.5">
+                        Digital Studio
+                    </span>
+                </div>
+            </a>
+
+            <!-- State Before Login (Visitor Nav Button) -->
+            <div id="navBeforeLogin" class="flex items-center gap-4">
+                <button onclick="openLoginModal()" class="px-5 py-2.5 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-cyanNeon/20 to-deepBlue/40 border border-cyanNeon/50 hover:border-cyanNeon hover:shadow-neon-glow transition-all duration-300 flex items-center gap-2 group">
+                    <i class="fa-solid fa-right-to-bracket text-cyanNeon group-hover:translate-x-0.5 transition-transform"></i>
+                    <span>Masuk Member Area</span>
+                </button>
+            </div>
+
+            <!-- State After Login (Active Member Badge Header) -->
+            <div id="navAfterLogin" class="hidden flex items-center gap-4">
+                <div class="flex items-center gap-3 bg-white/5 border border-white/10 rounded-full px-4 py-1.5">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyanNeon to-deepBlue flex items-center justify-center text-xs font-bold text-white shadow-neon-glow">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="text-left hidden sm:block">
+                        <div id="navUserName" class="text-sm font-bold text-white">Halo, Member Studio58!</div>
+                        <div class="flex items-center gap-1.5 text-[11px] text-amber-400 font-medium">
+                            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_#f59e0b]"></span>
+                            <span>Member Aktif</span>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="logout()" title="Keluar" class="p-2.5 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 hover:bg-red-500 hover:text-white transition-all duration-300">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow relative z-10">
+
+        <!-- 2. HERO SECTION (BEFORE LOGIN VIEW) -->
+        <section id="heroSection" class="max-w-7xl mx-auto px-4 lg:px-8 py-16 lg:py-24 transition-all duration-500">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Headline & CTA Content -->
+                <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-card border border-cyanNeon/30 text-cyanNeon text-xs font-semibold tracking-wide">
+                        <span class="w-2 h-2 rounded-full bg-cyanNeon animate-ping"></span>
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Studio58 AI Learning Platform
+                    </div>
+
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight">
+                        Make Video With AI:
+                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyanNeon via-blue-400 to-indigo-400 block mt-2">
+                            Kuasai Membuat Video AI Dari Nol Bersama Studio58
+                        </span>
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-slate-300 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        Platform pembelajaran pembuatan animasi berbasis Artificial Intelligence. Akses 15+ modul eksklusif pembuatan video animasi, iklan, hingga audio digital berbasis AI. Dapatkan akses penuh dengan sistem login khusus member.
+                    </p>
+
+                    <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <button onclick="openLoginModal()" class="w-full sm:w-auto px-8 py-4 rounded-2xl font-bold text-base text-obsidian bg-gradient-to-r from-cyanNeon to-blue-400 hover:brightness-110 shadow-neon-glow-lg hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3">
+                            <span>Masuk ke Member Area</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                        <!-- GANTI NOMOR WHATSAPP DI BAWAH INI -->
+                        <a href="https://wa.me/6281234567890?text=Halo%20Admin%20Studio58,%20saya%20ingin%20tanya%20mengenai%20akses%20Member%20Area" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-6 py-4 rounded-2xl font-semibold text-sm text-slate-300 glass-card hover:bg-white/10 hover:text-white transition-all duration-300 flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-green-400 text-lg"></i>
+                            <span>Hubungi Admin</span>
+                        </a>
+                    </div>
+
+                    <!-- Highlight Metrics -->
+                    <div class="pt-8 border-t border-white/10 grid grid-cols-3 gap-4 text-center lg:text-left">
+                        <div>
+                            <div class="text-2xl font-bold text-white">15+</div>
+                            <div class="text-xs text-slate-400">Modul AI</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-cyanNeon">Full HD</div>
+                            <div class="text-xs text-slate-400">16:9 Aspect Ratio</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-blue-400">Lifetime</div>
+                            <div class="text-xs text-slate-400">Akses Pembelajaran</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Visual Banner Card -->
+                <div class="lg:col-span-5 relative">
+                    <div class="relative mx-auto max-w-md lg:max-w-none">
+                        <div class="glass-card rounded-3xl p-4 border border-cyanNeon/30 shadow-neon-glow relative z-10 overflow-hidden group">
+                            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" alt="AI Animation Studio" class="w-full h-80 object-cover rounded-2xl transition-transform duration-500 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent opacity-80"></div>
+                            <div class="absolute bottom-6 left-6 right-6">
+                                <span class="bg-cyanNeon/20 text-cyanNeon text-xs font-semibold px-3 py-1 rounded-full border border-cyanNeon/40 backdrop-blur-md">
+                                    Featured Module
+                                </span>
+                                <h3 class="text-xl font-bold text-white mt-2">AI Animation Studio Showcase</h3>
+                                <p class="text-xs text-slate-300 mt-1">Ubah prompt teks sederhana menjadi video animasi sinematik resolusi tinggi.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. DASHBOARD AREA (AFTER LOGIN VIEW) -->
+        <section id="dashboardSection" class="hidden max-w-7xl mx-auto px-4 lg:px-8 py-10 transition-all duration-500">
+            <!-- Welcome Banner -->
+            <div class="glass-panel rounded-3xl p-6 lg:p-8 border border-cyanNeon/30 relative overflow-hidden mb-8">
+                <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-cyanNeon/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="relative z-10 max-w-3xl">
+                    <span class="bg-amber-400/20 text-amber-300 border border-amber-400/30 text-xs font-bold px-3 py-1 rounded-full inline-block mb-3">
+                        <i class="fa-solid fa-star mr-1"></i> Member Area Studio58
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-2">
+                        Halo, Member Studio58! &#128075; Selamat Datang di Studio58 Learning Hub
+                    </h2>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        Pilih salah satu modul di bawah ini untuk melihat Contoh Video, Video Tutorial, Catatan Teknis, dan Tools Pendukung.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Live Search Filter Bar -->
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
+                <div class="relative w-full sm:w-96">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    <input type="text" id="searchInput" onkeyup="filterModules()" placeholder="Cari nama modul animasi... (misal: Horror, ASMR, Affiliate)" class="w-full bg-cardDark/80 border border-white/10 rounded-2xl pl-11 pr-4 py-3.5 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-cyanNeon focus:ring-1 focus:ring-cyanNeon transition-all">
+                </div>
+                <div class="text-xs text-slate-400 w-full sm:w-auto text-right font-medium">
+                    Menampilkan: <span id="moduleCount" class="text-cyanNeon font-bold">15</span> Modul Pembelajaran
+                </div>
+            </div>
+
+            <!-- 15 Modules Responsive Grid Layout -->
+            <div id="moduleGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Injected dynamically via JS -->
+            </div>
+
+            <!-- Empty Search State -->
+            <div id="emptySearch" class="hidden text-center py-16 glass-card rounded-3xl border border-white/10">
+                <i class="fa-solid fa-film text-4xl text-slate-500 mb-3"></i>
+                <h3 class="text-lg font-bold text-white">Modul Tidak Ditemukan</h3>
+                <p class="text-xs text-slate-400 mt-1">Coba gunakan kata kunci pencarian yang lain.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="relative z-10 border-t border-white/10 py-6 px-4 lg:px-8 mt-auto">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
+            <p>&copy; 2026 <span class="text-white font-semibold">LIMADELAPAN STUDIO DIGITAL</span>. All rights reserved.</p>
+            <p>Mastering Digital Animation with AI</p>
+        </div>
+    </footer>
+
+    <!-- 4. MODAL POP-UP LOGIN -->
+    <div id="loginModal" onclick="if(event.target===this) closeLoginModal()" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-obsidian/80 backdrop-blur-md hidden transition-opacity duration-300">
+        <div class="glass-panel w-full max-w-md rounded-3xl p-6 sm:p-8 border border-cyanNeon/40 shadow-neon-glow relative">
+            <!-- Close Button -->
+            <button onclick="closeLoginModal()" aria-label="Tutup modal login" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-all">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Modal Header -->
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 mx-auto mb-3 rounded-2xl bg-gradient-to-tr from-cyanNeon to-deepBlue p-0.5 shadow-neon-glow flex items-center justify-center">
+                    <div class="w-full h-full bg-cardDark rounded-[14px] flex items-center justify-center text-cyanNeon text-xl">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                </div>
+                <h3 class="text-xl font-bold text-white">Studio58 Member Login</h3>
+                <p class="text-xs text-slate-400 mt-1">Silakan Login Menggunakan Akun Anda</p>
+            </div>
+
+            <!-- Form -->
+            <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label for="loginUsername" class="block text-xs font-semibold text-slate-300 mb-1.5">Email Address / Username</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+                        <input type="text" id="loginUsername" required placeholder="member@studio58.id" class="w-full bg-cardDark border border-white/10 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyanNeon focus:ring-1 focus:ring-cyanNeon transition-all">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="loginPassword" class="block text-xs font-semibold text-slate-300 mb-1.5">Password</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-key absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+                        <input type="password" id="loginPassword" required placeholder="••••••••" class="w-full bg-cardDark border border-white/10 rounded-xl pl-10 pr-10 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyanNeon focus:ring-1 focus:ring-cyanNeon transition-all">
+                        <button type="button" onclick="togglePasswordVisibility()" aria-label="Tampilkan password" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-cyanNeon text-xs">
+                            <i id="eyeIcon" class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between text-xs">
+                    <label class="flex items-center gap-2 cursor-pointer text-slate-300">
+                        <input type="checkbox" id="rememberMe" checked class="rounded bg-cardDark border-white/20 text-cyanNeon focus:ring-0 focus:ring-offset-0">
+                        <span>Ingat Saya</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 rounded-xl font-bold text-sm text-obsidian bg-gradient-to-r from-cyanNeon to-blue-400 hover:brightness-110 shadow-neon-glow transition-all duration-300 flex items-center justify-center gap-2 mt-2">
+                    <span>Masuk Sekarang &rarr;</span>
+                </button>
+            </form>
+
+            <!-- Modal Footer -->
+            <div class="mt-6 pt-5 border-t border-white/10 text-center text-xs text-slate-400">
+                Belum memiliki akun akses Studio58? / Lupa Password?
+                <!-- GANTI NOMOR WHATSAPP DI BAWAH INI -->
+                <a href="https://wa.me/6281234567890?text=Halo%20Admin%20Studio58,%20saya%20butuh%20bantuan%20login%20akses%20member" target="_blank" rel="noopener noreferrer" class="block mt-1 font-bold text-cyanNeon hover:underline">
+                    [ Hubungi Admin Sekarang ]
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. MODAL DETAIL INTERAKTIF PER MODUL -->
+    <div id="moduleModal" onclick="if(event.target===this) closeModuleModal()" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-obsidian/90 backdrop-blur-md hidden overflow-y-auto">
+        <div class="glass-panel w-full max-w-5xl rounded-3xl p-5 sm:p-7 border border-cyanNeon/30 shadow-neon-glow relative my-auto max-h-[92vh] flex flex-col overflow-hidden">
+            
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between pb-4 border-b border-white/10">
+                <div class="flex items-center gap-3 min-w-0">
+                    <span id="modalModuleBadge" class="px-3 py-1 rounded-full text-xs font-bold bg-cyanNeon/20 text-cyanNeon border border-cyanNeon/40 shrink-0">
+                        Modul 1
+                    </span>
+                    <h3 id="modalModuleTitle" class="text-lg sm:text-xl font-bold text-white truncate max-w-md sm:max-w-xl">
+                        Video Affiliate Creative
+                    </h3>
+                </div>
+                <button onclick="closeModuleModal()" aria-label="Tutup detail modul" class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-all flex-shrink-0">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body (Scrollable) -->
+            <div class="overflow-y-auto py-5 space-y-6 pr-1">
+                
+                <!-- Player Video Layout Grid (2 Columns 16:9 Aspect Ratio) -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                    
+                    <!-- Left Frame: Contoh Video (16:9 Aspect Ratio) -->
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2 text-xs font-bold text-cyanNeon">
+                            <i class="fa-solid fa-circle-play"></i> &#127916; Contoh Video Hasil AI
+                        </div>
+                        <div class="relative aspect-video rounded-2xl overflow-hidden bg-black/60 border border-white/10 shadow-lg">
+                            <iframe id="videoPlayer1" class="w-full h-full" src="" title="Contoh Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+
+                    <!-- Right Frame: Video Tutorial (16:9 Aspect Ratio) -->
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2 text-xs font-bold text-blue-400">
+                            <i class="fa-solid fa-graduation-cap"></i> &#128161; Video Tutorial &amp; Workflow
+                        </div>
+                        <div class="relative aspect-video rounded-2xl overflow-hidden bg-black/60 border border-white/10 shadow-lg">
+                            <iframe id="videoPlayer2" class="w-full h-full" src="" title="Video Tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Bottom Grid (Catatan & Tools Section) -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 pt-2">
+                    
+                    <!-- Box Catatan (Left 7 Cols) -->
+                    <div class="lg:col-span-7 bg-cardDark/90 rounded-2xl p-5 border border-white/10 space-y-3">
+                        <h4 class="text-sm font-bold text-white flex items-center gap-2 border-b border-white/10 pb-2.5">
+                            <i class="fa-solid fa-clipboard-list text-cyanNeon"></i> Catatan Ringkasan &amp; Alur Kerja
+                        </h4>
+                        <ul id="modalNotesList" class="space-y-2 text-xs text-slate-300 leading-relaxed">
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-cyanNeon mt-0.5 text-[10px]"></i>
+                                <span>Modul ini berisi tentang cara membuat Video dengan mudah.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-cyanNeon mt-0.5 text-[10px]"></i>
+                                <span>Memahami urutan pembuatan Video (Text Prompting -&gt; Text to Gambar -&gt; Gambar to Video).</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-cyanNeon mt-0.5 text-[10px]"></i>
+                                <span>Menjaga Struktur wajah, pencahayaan, dan proporsi tubuh karakter di tiap frame render.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-cyanNeon mt-0.5 text-[10px]"></i>
+                                <span>Gunakan aspect ratio 16:9 (1920x1080) untuk Youtube, dan 9:16 (1080x1920) untuk Tiktok.</span>
+                            </li>
+                        </ul>
+
+                        <div class="pt-2">
+                            <button onclick="copySummaryText()" class="w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-cyanNeon bg-cyanNeon/10 border border-cyanNeon/30 hover:bg-cyanNeon hover:text-obsidian transition-all flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-copy"></i>
+                                <span>&#128466;&#65039; Salin Ringkasan Modul</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Box Tools & Link (Right 5 Cols) -->
+                    <div class="lg:col-span-5 bg-cardDark/90 rounded-2xl p-5 border border-white/10 space-y-3 flex flex-col justify-between">
+                        <div>
+                            <h4 class="text-sm font-bold text-white flex items-center gap-2 border-b border-white/10 pb-2.5">
+                                <i class="fa-solid fa-toolbox text-blue-400"></i> Tools Pendukung
+                            </h4>
+                            <p class="text-xs text-slate-400 mt-2 mb-3">
+                                Gunakan tools di bawah ini untuk mempraktikkan materi yang ada pada video:
+                            </p>
+                        </div>
+
+                        <div class="space-y-2.5">
+                            <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-white bg-white/5 border border-white/10 hover:border-cyanNeon hover:bg-cyanNeon/10 transition-all flex items-center justify-between group">
+                                <span class="flex items-center gap-2">
+                                    <i class="fa-solid fa-robot text-cyanNeon"></i>
+                                    <span>&#8599; Akses Prompt ChatGPT / Gemini</span>
+                                </span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-400 group-hover:text-cyanNeon"></i>
+                            </a>
+
+                            <a href="https://pixabay.com/music/" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-white bg-white/5 border border-white/10 hover:border-blue-400 hover:bg-blue-400/10 transition-all flex items-center justify-between group">
+                                <span class="flex items-center gap-2">
+                                    <i class="fa-solid fa-music text-blue-400"></i>
+                                    <span>&#8599; Download Backsound Pixabay</span>
+                                </span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-400 group-hover:text-blue-400"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copy Notification Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 hidden glass-panel px-5 py-3 rounded-2xl border border-cyanNeon/50 text-white text-xs font-semibold flex items-center gap-3 shadow-neon-glow">
+        <i class="fa-solid fa-circle-check text-cyanNeon text-base"></i>
+        <span id="toastMessage">Ringkasan modul berhasil disalin!</span>
+    </div>
+
+    <script>
+        // Data 15 Modul Pembelajaran
+        const modulesData = [
+            {
+                id: 1,
+                title: "Video Affiliate Creative",
+                subtitle: "Buat Konten Iklan Kreatif Konversi Tinggi",
+                bgImage: "https://res.cloudinary.com/efjvw1b0/image/upload/v1791098511/1._Affiliate_Creative.jpg",
+                videoEmbed1: "https://www.youtube.com/embed/ScBzR7YX1jU?si=xIfkJGNSoIpqjdw0",
+                videoEmbed2: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            },
+            {
+                id: 2,
+                title: "Video Affiliate",
+                subtitle: "Format Video Promosi Produk Serbaguna",
+                bgImage: "https://res.cloudinary.com/efjvw1b0/image/upload/v1791098852/2.Affiliate.jpg",
+                videoEmbed1: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                videoEmbed2: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            },
+            {
+                id: 3,
+                title: "Video Iklan Profesional",
+                subtitle: "Visual Promosi Komersial Kelas Profesional",
+                bgImage: "https://res.cloudinary.com/efjvw1b0/image/upload/v1791098920/3.Iklan.jpg",
+                videoEmbed1: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                videoEmbed2: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            },
+            {
+                id: 4,
+                title: "Video Animasi Fakta Unik",
+                subtitle: "Konten Edukasi Viral Menarik",
+                bgImage: "https://res.cloudinary.com/efjvw1b0/image/upload/v1791099202/4._Fakta_unik.jpg",
+                videoEmbed1: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                videoEmbed2: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            },
+            {
+                id: 5,
+                title: "Video Animasi Presentasi",
+                subtitle: "Visualisasi Materi Lebih Interaktif",
+                bgImage: "https://res.cloudinary.com/efjvw1b0/image/upload/v1791099243/5._Animasi.jpg",
+                videoEmbed1: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                videoEmbed2: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            },
+            {
+                id: 6,
+                title: "Video Animasi Alur Pembuatan KTP",
+                subtitle: "Contoh Animasi Edukasi & Layanan Publik",
+                bgImage: "https://res.cloudinary.com/efjvw1b0/image/upload/v1791099296/6._Alur_KTP.jpg",
+                videoEmbed1: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                videoEmbed2: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            },
+            {
+                id: 7,
+                title: "Video Animasi PPDB",
+                subtitle: "Animasi Promosi Sekolah & Penerimaan Siswa",
+                bgImage: "https://res.cloudinary.com/efjvw1b0/image/upload/v1791099353/7._PPDB.jpg",
+                videoEmbed1: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                videoEmbed2: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            },
+            {
+                id: 8,
+                title: "Video Animasi Objek Bicara",
+                subtitle: "Hidupkan Gambar Diam Jadi Berbicara",
+                bgImage: "https://res.cloudinary.com/efjvw1b0/image/upload/v1791099398/8._Object_Bicara.jpg",
+                videoEmbed1: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                videoEmbed2: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            },
+            {
+                id: 9,
+                title: "Video Animasi Horor",
+                subtitle: "Buat Storytelling Visual Nuansa Misteri",
+                bgImage: "https://res.cloudinary.com/efjvw1b0/image/upload/v1791099436/9._Animasi_Horor.jpg",
+                videoEmbed1: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                videoEmbed2: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            },
+            {
+                id: 10,
+                title: "Video Animasi Cerita Rakyat",
+                subtitle: "Animasi Narrative Nusantara",
+                bgImage: "https://res.cloudinary.com/efjvw1b0/image/upload/v1791099478/10._Cerita_Rakyat.jpg",
+                videoEmbed1: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                videoEmbed2: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            },
+            {
+                id: 11,
+                title: "Video Klip Lagu Anak",
+                subtitle: "Visualisasi Lagu Edukatif Anak-Anak",
+                bgImage: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=600&auto=format&fit=crop",
+                videoEmbed1: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                videoEmbed2: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            },
+            {
+                id: 12,
+                title: "Video Short Drama",
+                subtitle: "Konten Visual Tren Relaksasi Sederhana",
+                bgImage: "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=600&auto=format&fit=crop",
+                videoEmbed1: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                videoEmbed2: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            },
+            {
+                id: 13,
+                title: "Gambar Poster",
+                subtitle: "Desain Poster Promosi Berbasis AI",
+                bgImage: "https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?q=80&w=600&auto=format&fit=crop",
+                videoEmbed1: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                videoEmbed2: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            },
+            {
+                id: 14,
+                title: "Bikin Musik dan Lagu",
+                subtitle: "Komposisi Audio & Sound Effect AI",
+                bgImage: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=600&auto=format&fit=crop",
+                videoEmbed1: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                videoEmbed2: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            },
+            {
+                id: 15,
+                title: "Video Action Movie",
+                subtitle: "Efek Visual & Sinematik Aksi AI",
+                bgImage: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=600&auto=format&fit=crop",
+                videoEmbed1: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                videoEmbed2: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            }
+        ];
+
+        let activeModule = null;
+        let toastTimeout = null;
+
+        // Init App On Window Load
+        document.addEventListener("DOMContentLoaded", () => {
+            renderModuleCards(modulesData);
+            checkAuthSession();
+        });
+
+        // Tutup modal menggunakan tombol ESC
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                closeLoginModal();
+                closeModuleModal();
+            }
+        });
+
+        // Render Cards to Grid
+        function renderModuleCards(data) {
+            const grid = document.getElementById('moduleGrid');
+            const countElem = document.getElementById('moduleCount');
+            const emptyElem = document.getElementById('emptySearch');
+
+            grid.innerHTML = '';
+            countElem.innerText = data.length;
+
+            if (data.length === 0) {
+                emptyElem.classList.remove('hidden');
+            } else {
+                emptyElem.classList.add('hidden');
+                data.forEach(mod => {
+                    const card = document.createElement('div');
+                    card.className = "glass-card rounded-2xl overflow-hidden cursor-pointer group flex flex-col justify-between";
+                    card.onclick = () => openModuleModal(mod.id);
+
+                    card.innerHTML = `
+                        <div>
+                            <div class="relative aspect-video overflow-hidden bg-obsidian">
+                                <img src="${mod.bgImage}" alt="${mod.title}" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                <div class="absolute inset-0 bg-gradient-to-t from-cardDark via-cardDark/20 to-transparent"></div>
+                                <span class="absolute top-3 left-3 bg-obsidian/80 border border-cyanNeon/40 text-cyanNeon text-[10px] font-bold px-2.5 py-1 rounded-full backdrop-blur-md">
+                                    Modul ${mod.id}
+                                </span>
+                                <div class="absolute bottom-3 right-3 w-8 h-8 rounded-full bg-cyanNeon/20 border border-cyanNeon flex items-center justify-center text-cyanNeon group-hover:bg-cyanNeon group-hover:text-obsidian transition-all shadow-neon-glow">
+                                    <i class="fa-solid fa-play text-xs ml-0.5"></i>
+                                </div>
+                            </div>
+
+                            <div class="p-5">
+                                <h3 class="text-base font-bold text-white group-hover:text-cyanNeon transition-colors line-clamp-1">
+                                    ${mod.title}
+                                </h3>
+                                <p class="text-xs text-slate-400 mt-1 line-clamp-2 leading-relaxed">
+                                    ${mod.subtitle}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="px-5 pb-5 pt-0 flex items-center justify-between text-xs font-semibold text-cyanNeon">
+                            <span>Buka Modul</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+        }
+
+        // Live Search Filter Function
+        function filterModules() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const filtered = modulesData.filter(mod =>
+                mod.title.toLowerCase().includes(query) ||
+                mod.subtitle.toLowerCase().includes(query)
+            );
+            renderModuleCards(filtered);
+        }
+
+        // Auth Logic Session
+        function checkAuthSession() {
+            const isLoggedIn = (localStorage.getItem('studio58_logged_in') === 'true') ||
+                               (sessionStorage.getItem('studio58_logged_in') === 'true');
+            const username = localStorage.getItem('studio58_username') ||
+                             sessionStorage.getItem('studio58_username') ||
+                             'Member Studio58';
+
+            const hero = document.getElementById('heroSection');
+            const dashboard = document.getElementById('dashboardSection');
+            const navBefore = document.getElementById('navBeforeLogin');
+            const navAfter = document.getElementById('navAfterLogin');
+            const navUserName = document.getElementById('navUserName');
+
+            if (isLoggedIn) {
+                hero.classList.add('hidden');
+                dashboard.classList.remove('hidden');
+                navBefore.classList.add('hidden');
+                navAfter.classList.remove('hidden');
+                navUserName.innerText = `Halo, ${username}!`;
+            } else {
+                hero.classList.remove('hidden');
+                dashboard.classList.add('hidden');
+                navBefore.classList.remove('hidden');
+                navAfter.classList.add('hidden');
+            }
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const userInput = document.getElementById('loginUsername').value.trim();
+            const remember = document.getElementById('rememberMe').checked;
+            const name = userInput.split('@')[0] || 'Member';
+
+            if (remember) {
+                localStorage.setItem('studio58_logged_in', 'true');
+                localStorage.setItem('studio58_username', name);
+            } else {
+                sessionStorage.setItem('studio58_logged_in', 'true');
+                sessionStorage.setItem('studio58_username', name);
+            }
+
+            closeLoginModal();
+            checkAuthSession();
+            showToast(`Selamat datang kembali, ${name}!`);
+        }
+
+        function logout() {
+            localStorage.removeItem('studio58_logged_in');
+            localStorage.removeItem('studio58_username');
+            sessionStorage.removeItem('studio58_logged_in');
+            sessionStorage.removeItem('studio58_username');
+            checkAuthSession();
+            showToast('Anda telah keluar dari Member Area.');
+        }
+
+        // Modal Controls
+        function openLoginModal() {
+            document.getElementById('loginModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('loginPassword');
+            const eyeIcon = document.getElementById('eyeIcon');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+
+        function openModuleModal(id) {
+            const mod = modulesData.find(m => m.id === id);
+            if (!mod) return;
+
+            activeModule = mod;
+
+            document.getElementById('modalModuleBadge').innerText = `Modul ${mod.id}`;
+            document.getElementById('modalModuleTitle').innerText = mod.title;
+
+            // Set iFrames
+            document.getElementById('videoPlayer1').src = mod.videoEmbed1;
+            document.getElementById('videoPlayer2').src = mod.videoEmbed2;
+
+            document.getElementById('moduleModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModuleModal() {
+            document.getElementById('moduleModal').classList.add('hidden');
+            document.getElementById('videoPlayer1').src = "";
+            document.getElementById('videoPlayer2').src = "";
+            document.body.style.overflow = '';
+        }
+
+        function goHome(e) {
+            if (e) e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Copy Summary Clipboard Function
+        function copySummaryText() {
+            if (!activeModule) return;
+
+            const textToCopy = `=== RINGKASAN MODUL ${activeModule.id}: ${activeModule.title.toUpperCase()} ===\n` +
+                `• Deskripsi: ${activeModule.subtitle}\n` +
+                `• Point 1: Modul ini berisi tentang cara membuat Video dengan mudah.\n` +
+                `• Point 2: Memahami urutan pembuatan Video (Text Prompting -> Text to Gambar -> Gambar to Video).\n` +
+                `• Point 3: Menjaga Struktur wajah, pencahayaan, dan proporsi tubuh karakter di tiap frame render.\n` +
+                `• Point 4: Gunakan aspect ratio 16:9 (1920x1080) untuk Youtube, dan 9:16 (1080x1920) untuk Tiktok.\n\n` +
+                `Belajar Animasi AI bersama LIMADELAPAN STUDIO DIGITAL`;
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    showToast("Ringkasan modul berhasil disalin!");
+                }).catch(() => {
+                    fallbackCopy(textToCopy);
+                });
+            } else {
+                fallbackCopy(textToCopy);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showToast("Ringkasan modul berhasil disalin!");
+            } catch (err) {
+                showToast("Gagal menyalin ringkasan.");
+            }
+            document.body.removeChild(textArea);
+        }
+
+        // Toast Notification System
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMessage');
+            toastMsg.innerText = message;
+
+            if (toastTimeout) clearTimeout(toastTimeout);
+
+            toast.classList.remove('hidden');
+            toast.classList.remove('toast-animate');
+            void toast.offsetWidth; // trigger reflow agar animasi ulang
+            toast.classList.add('toast-animate');
+
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('hidden');
+                toast.classList.remove('toast-animate');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
